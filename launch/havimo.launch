@@ -1,0 +1,9 @@
+<launch>
+
+	<param name="havimo_serial_port" value="/dev/ttyUSB0" />
+  	<param name="havimo_baud_rate" value="115200" />
+    <param name="havimo_debug" value="1" />
+  <node pkg="havimo_ros" type="havimo_node" name="havimo" output="screen">
+ 
+  </node>
+</launch>
