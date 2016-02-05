@@ -1,0 +1,9 @@
+uint8 father
+uint8 color
+int16 numPix
+uint32 sumX
+uint32 sumY
+uint8 maxX
+uint8 minX
+uint8 maxY
+uint8 minY

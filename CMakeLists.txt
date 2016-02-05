@@ -1,10 +1,46 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(havimo_ros)
 
-find_package(catkin REQUIRED roscpp serial)
+find_package(catkin REQUIRED roscpp serial std_msgs message_generation)
 find_package(serial REQUIRED)
 
-catkin_package()
+#######################################
+## Declare ROS messages and services ##
+#######################################
+ 
+## Generate messages in the 'msg' folder
+add_message_files(
+  FILES
+  Cat.msg
+  CatArray.msg
+)
+
+## Generate services in the 'srv' folder
+# add_service_files(
+#   FILES
+#   Service1.srv
+#   Service2.srv
+# )
+
+## Generate added messages and services with any dependencies listed here
+generate_messages(
+  DEPENDENCIES
+  std_msgs  # Or other packages containing msgs
+)
+
+###################################
+## catkin specific configuration ##
+###################################
+## The catkin_package macro generates cmake config files for your package
+## Declare things to be passed to dependent projects
+## INCLUDE_DIRS: uncomment this if you package contains header files
+## LIBRARIES: libraries you create in this project that dependent projects also need
+## CATKIN_DEPENDS: catkin_packages dependent projects also need
+## DEPENDS: system dependencies of this project that dependent projects also need
+catkin_package(
+	LIBRARIES ${PROJECT_NAME}
+	CATKIN_DEPENDS message_runtime
+)
 
 ###########
 ## Build ##
@@ -12,27 +48,23 @@ catkin_package()
 
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
+# include_directories(include)
+## Include headers
+## Specify additional locations of header files
+## Your package locations should be listed before other locations
+
 include_directories(include
-  ${catkin_INCLUDE_DIRS}
-)
+	${catkin_INCLUDE_DIRS})
+
 
 ## Declare a cpp library
-add_library(havimo_ros
-    src/havimo.cpp 
-    
- )
+add_library(${PROJECT_NAME} src/havimo.cpp)
+
 
 ## Declare a cpp executable
 add_executable(havimo_node src/havimo_node.cpp)
 add_dependencies(havimo_node ${PROJECT_NAME})
 target_link_libraries(havimo_node ${PROJECT_NAME} ${catkin_LIBRARIES})
-#add_executable(object_segmentation_node src/obj_segment/get_obj_clusters.cpp)
-
-## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
-# add_dependencies(vision_node vision_generate_messages_cpp)
-
-## Specify libraries to link a library or executable target against
 
 
 #############
